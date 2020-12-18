@@ -173,7 +173,9 @@ CocktailRecipeItem.propTypes = {
     cocktailName: PropTypes.string.isRequired,
     cocktailImage: PropTypes.string.isRequired,
     recipe: PropTypes.string.isRequired,
-    ingredients: PropTypes.array.isRequired
+    ingredients: PropTypes.array.isRequired,
+    rating: PropTypes.array.isRequired,
+    idCocktail: PropTypes.string.isRequired
 };
 
 export default CocktailRecipeItem;
