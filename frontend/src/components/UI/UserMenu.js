@@ -1,12 +1,17 @@
 import React, {useState} from 'react';
-import { Button, Menu, MenuItem } from '@material-ui/core';
+import { Button, Menu, MenuItem, Avatar, makeStyles } from '@material-ui/core';
 import {useDispatch, useSelector} from "react-redux";
-// import {logoutUser} from "../../../store/actions/usersActions";
-// import {cleanEventsWhenLogout} from "../../../store/actions/eventsActions";
 import {NavLink} from "react-router-dom";
 import {logoutUser} from "../../store/actions/usersActions";
 
+const useStyles = makeStyles(theme => ({
+    avatar: {
+        marginRight: theme.spacing(1)
+    }
+}));
+
 const UserMenu = () => {
+    const classes = useStyles();
     const {user} = useSelector(state => state.users);
     const dispatch = useDispatch();
 
@@ -19,6 +24,7 @@ const UserMenu = () => {
                 color='inherit'
                 onClick={e => setAnchorEl(e.currentTarget)}
             >
+                {user.avatar && <Avatar alt={user.displayName} src={user.avatar} className={classes.avatar}/>}
                 Hello, {user && user.displayName}
             </Button>
             <Menu

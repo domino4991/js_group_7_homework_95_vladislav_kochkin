@@ -1,6 +1,6 @@
 import React from 'react';
 import {DataGrid} from '@material-ui/data-grid';
-import {IconButton, makeStyles, Button} from "@material-ui/core";
+import {IconButton, makeStyles, Button, Tooltip} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -68,24 +68,28 @@ const Table = ({cocktails}) => {
             width: 300,
             renderCell: (params) => (
                 <>
-                    <IconButton
-                        size="medium"
-                        onClick={() => dispatch(publishCocktail(params.row.id))}
-                        color="primary"
-                        className={classes.iconBtn}
-                    >
-                        {
-                            params.row.publish === 'Опубликован' ? <VisibilityOffIcon /> : <VisibilityIcon />
-                        }
-                    </IconButton>
-                    <IconButton
-                        size="medium"
-                        onClick={() => dispatch(deleteCocktail(params.row.id))}
-                        color="secondary"
-                        className={classes.iconBtn}
-                    >
-                        <DeleteForeverIcon />
-                    </IconButton>
+                    <Tooltip title={params.row.publish === 'Опубликован' ? 'Снять с публикации' : 'Опубликовать'}>
+                        <IconButton
+                            size="medium"
+                            onClick={() => dispatch(publishCocktail(params.row.id))}
+                            color="primary"
+                            className={classes.iconBtn}
+                        >
+                            {
+                                params.row.publish === 'Опубликован' ? <VisibilityOffIcon /> : <VisibilityIcon />
+                            }
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title='Удалить рецепт'>
+                        <IconButton
+                            size="medium"
+                            onClick={() => dispatch(deleteCocktail(params.row.id))}
+                            color="secondary"
+                            className={classes.iconBtn}
+                        >
+                            <DeleteForeverIcon />
+                        </IconButton>
+                    </Tooltip>
                     <Button
                         variant='contained'
                         color='inherit'

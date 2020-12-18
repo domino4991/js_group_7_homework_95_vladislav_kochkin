@@ -75,7 +75,7 @@ const CocktailItem = ({cocktailName, cocktailImage, id}) => {
                     variant='contained'
                     size='small'
                 >
-                    Learn More
+                    Подробнее
                 </Button>
             </CardActions>
         </Card>
