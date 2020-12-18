@@ -4,6 +4,26 @@ const User = require('../models/User');
 const config = require('../config');
 const axios = require('axios');
 
+router.post('/sessions', async (req, res) => {
+    try {
+        const user = await User.findOne({username: req.body.username});
+        if(!user) return res.status(404).send({error: 'Пользователь не найден'});
+        const isMatch = await user.checkPass(req.body.password);
+        if(!isMatch) return res.status(400).send({error: 'Неверный пароль'});
+        user.genToken();
+        await user.save({validateBeforeSave: false});
+        return res.send({
+            username: user.username,
+            displayName: user.displayName,
+            avatar: user.avatar,
+            token: user.token,
+            role: user.role
+        });
+    } catch (e) {
+        return res.status(400).send(e);
+    }
+});
+
 router.post('/', async (req, res) => {
     const inputToken = req.body.accessToken;
     const accessToken = config.facebookAccess + '|' + config.facebookSecret;
@@ -33,7 +53,8 @@ router.post('/', async (req, res) => {
             username: user.username,
             displayName: user.displayName,
             avatar: user.avatar,
-            token: user.token
+            token: user.token,
+            role: user.role
         });
     } catch (e) {
         return res.status(401).send({error: 'Facebook token incorrect'});
