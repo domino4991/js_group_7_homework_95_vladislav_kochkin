@@ -22,9 +22,20 @@ const CocktailSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    ingredients: [{
-        type: mongoose.Schema.Types.Mixed,
-        required: [true, 'Должен быть добавлен хотя бы 1 ингредиент']
+    ingredients: {
+        type: Array,
+        required: true,
+        validate : {
+            validator : function(array) {
+                if(array.length === 0) {
+                    return false;
+                }
+            },
+            message: 'Должен быть добавлен хотя бы 1 ингредиент'
+        }
+    },
+    rating: [{
+        type: mongoose.Schema.Types.Mixed
     }]
 }, {
     versionKey: false
