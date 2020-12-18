@@ -142,7 +142,7 @@ const Table = ({cocktails}) => {
                     autoHeight
                     pageSize={25}
                     className={classes.table}
-                /> : <p style={{textAlign: 'center'}}>У Вас еще нет созданных рецептов коктейлей</p>
+                /> : null
             }
         </div>
     );
