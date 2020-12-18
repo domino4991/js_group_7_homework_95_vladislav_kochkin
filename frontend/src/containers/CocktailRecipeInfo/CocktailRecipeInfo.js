@@ -37,6 +37,7 @@ const CocktailRecipeInfo = (props) => {
                 recipe={cocktail.recipe}
                 rating={cocktail.rating}
                 idCocktail={id}
+                isPublish={cocktail.isPublished}
             />}
         </div>
     );

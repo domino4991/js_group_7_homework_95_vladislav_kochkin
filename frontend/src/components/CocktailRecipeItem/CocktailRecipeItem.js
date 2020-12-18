@@ -62,7 +62,8 @@ const CocktailRecipeItem = ({
     ingredients,
     recipe,
     rating,
-    idCocktail
+    idCocktail,
+    isPublish
 }) => {
     const classes = useStyles();
     const path = apiUrl + '/uploads/' + cocktailImage;
@@ -137,6 +138,7 @@ const CocktailRecipeItem = ({
                         <Rating
                             name="simple-controlled"
                             value={userRating.score}
+                            disabled={!isPublish}
                             onChange={(event, newValue) => {
                                 dispatch(setRatingCocktail(idCocktail, {
                                     user: user.username,
